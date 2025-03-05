@@ -17,12 +17,14 @@ class GildedRoseTest {
     void testNormalItemDegradesCorrectly() {
         executeUpdateQualityTest("Normal Item", 0, 20, -1, 18);
         executeUpdateQualityTest("Normal Item", 0, -1, -1, -1);
+        executeUpdateQualityTest("Normal Item", 20, -1, 19, -1);
     }
 
     @Test
     void testAgedBrieIncreasesQualityOverTime() {
         executeUpdateQualityTest("Aged Brie", 0, 20, -1, 22);
         executeUpdateQualityTest("Aged Brie", 0, 50, -1, 50);
+        executeUpdateQualityTest("Aged Brie", 1, 20, 0, 21);
 
     }
 
@@ -31,6 +33,7 @@ class GildedRoseTest {
         executeUpdateQualityTest("Backstage passes to a TAFKAL80ETC concert", 15, 20, 14, 21);
         executeUpdateQualityTest("Backstage passes to a TAFKAL80ETC concert", 0, 20, -1, 0);
         executeUpdateQualityTest("Backstage passes to a TAFKAL80ETC concert", 5, 49, 4, 50);
+        executeUpdateQualityTest("Backstage passes to a TAFKAL80ETC concert", 5, 50, 4, 50);
     }
 
     @Test
