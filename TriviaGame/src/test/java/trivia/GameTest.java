@@ -46,7 +46,7 @@ public class GameTest {
 			aGame.add("Pat");
 			aGame.add("Sue");
 
-			boolean notAWinner = false;
+			boolean notAWinner;
 			do {
 				aGame.roll(rand.nextInt(5) + 1);
 
