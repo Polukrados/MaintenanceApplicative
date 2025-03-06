@@ -9,14 +9,14 @@ class GildedRoseTest {
         Item[] items = new Item[] { new Item(name, sellIn, quality) };
         GildedRose app = new GildedRose(items);
         app.updateQuality();
-        assertEquals(expectedSellIn, app.items[0].sellIn, "SellIn incorrect for " + name);
-        assertEquals(expectedQuality, app.items[0].quality, "Quality incorrect for " + name);
+        assertEquals(expectedSellIn, app.getItem(0).sellIn, "SellIn incorrect for " + name);
+        assertEquals(expectedQuality, app.getItem(0).quality, "Quality incorrect for " + name);
     }
 
     @Test
     void testNormalItemDegradesCorrectly() {
         executeUpdateQualityTest("Normal Item", 0, 20, -1, 18);
-        executeUpdateQualityTest("Normal Item", 0, -1, -1, -1);
+        executeUpdateQualityTest("Normal Item", 0, 0, -1, 0);
         executeUpdateQualityTest("Normal Item", 20, -1, 19, -1);
     }
 
@@ -25,7 +25,6 @@ class GildedRoseTest {
         executeUpdateQualityTest("Aged Brie", 0, 20, -1, 22);
         executeUpdateQualityTest("Aged Brie", 0, 50, -1, 50);
         executeUpdateQualityTest("Aged Brie", 1, 20, 0, 21);
-
     }
 
     @Test
@@ -38,6 +37,12 @@ class GildedRoseTest {
 
     @Test
     void testSulfuras() {
-        executeUpdateQualityTest("Sulfuras, Hand of Ragnaros", -1, 1, -1, 1);
+        executeUpdateQualityTest("Sulfuras, Hand of Ragnaros", 0, 80, 0, 80);
+    }
+
+    @Test
+    void testConjuredItemDegradesTwiceAsFast() {
+        executeUpdateQualityTest("Conjured Mana Cake", 10, 20, 9, 18);
+        executeUpdateQualityTest("Conjured Mana Cake", 0, 20, -1, 16);
     }
 }
