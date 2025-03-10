@@ -5,6 +5,9 @@ public class Player {
     private int position;
     private int coins;
     private boolean inPenaltyBox;
+    private String lastWrongCategory = "";
+    private boolean hasSecondChance = false;
+    private int streak = 0;
 
     public Player(String name) {
         this.name = name;
@@ -21,17 +24,21 @@ public class Player {
         return position;
     }
 
-    public void move(int roll) {
-        position = (position + roll) % 12;
-        if (position == 0) position = 12;
-    }
-
     public int getCoins() {
         return coins;
     }
 
     public void addCoin() {
-        coins++;
+        streak++;
+        if (streak >= 3) {
+            coins += 2;
+        } else {
+            coins++;
+        }
+    }
+
+    public void resetStreak() {
+        streak = 0;
     }
 
     public boolean isInPenaltyBox() {
@@ -40,5 +47,20 @@ public class Player {
 
     public void setInPenaltyBox(boolean inPenaltyBox) {
         this.inPenaltyBox = inPenaltyBox;
+    }
+
+    public boolean shouldGoToPenaltyBox(String category) {
+        if (hasSecondChance && lastWrongCategory.equals(category)) {
+            hasSecondChance = false;
+            return true;
+        } else {
+            lastWrongCategory = category;
+            hasSecondChance = true;
+            return false;
+        }
+    }
+
+    public void setPosition(int newPosition) {
+        position = newPosition;
     }
 }
