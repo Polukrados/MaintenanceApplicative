@@ -10,14 +10,8 @@ public class Game implements IGame {
     private int currentPlayerIndex = 0;
     private boolean isGettingOutOfPenaltyBox;
     private static final int MAX_PLAYERS = 6;
-    private final boolean gameStarted = false;
 
     public boolean add(String playerName) {
-        if (gameStarted) {
-            System.out.println("Cannot add more players. The game has already started.");
-            return false;
-        }
-
         if (players.size() >= MAX_PLAYERS) {
             System.out.println("Cannot add more players. The maximum number of players is " + MAX_PLAYERS);
             return false;
@@ -93,18 +87,23 @@ public class Game implements IGame {
         return true;
     }
 
-    public boolean wrongAnswer() {
+    public boolean handlewrongAnswer() {
         Player currentPlayer = players.get(currentPlayerIndex);
         String category = getCurrentCategory(currentPlayer.getPosition());
 
         System.out.println("Question was incorrectly answered");
         currentPlayer.resetStreak();
 
-        if (currentPlayer.shouldGoToPenaltyBox(category)) {
-            System.out.println(currentPlayer.getName() + " was sent to the penalty box");
-            currentPlayer.setInPenaltyBox(true);
+        if (currentPlayer.getStreak() >= 3) {
+            System.out.println(currentPlayer.getName() + " loses their streak but avoids jail.");
+            currentPlayer.resetStreak();
         } else {
-            System.out.println(currentPlayer.getName() + " gets a second chance in the same category.");
+            if (currentPlayer.shouldGoToPenaltyBox(category)) {
+                System.out.println(currentPlayer.getName() + " was sent to the penalty box");
+                currentPlayer.setInPenaltyBox(true);
+            } else {
+                System.out.println(currentPlayer.getName() + " gets a second chance in the same category.");
+            }
         }
 
         nextPlayer();

@@ -45,12 +45,12 @@ public class GameTest {
 	}
 
 	@Test
-	public void testWrongAnswerSendsToPenaltyBox() {
+	public void testHandlewrongAnswerSendsToPenaltyBox() {
 		Game game = new Game();
 		game.add("Alice");
 		game.add("Bob");
 
-		game.wrongAnswer();
+		game.handlewrongAnswer();
 		assertFalse(game.getCurrentPlayer().isInPenaltyBox()); // Pas dans la boîte
 	}
 }

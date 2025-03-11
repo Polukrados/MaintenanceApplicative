@@ -63,4 +63,8 @@ public class Player {
     public void setPosition(int newPosition) {
         position = newPosition;
     }
+
+    public int getStreak() {
+        return streak;
+    }
 }

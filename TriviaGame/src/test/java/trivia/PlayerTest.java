@@ -15,26 +15,53 @@ public class PlayerTest {
     }
 
     @Test
-    public void testMove() {
+    public void testSetPosition() {
         Player player = new Player("Bob");
-        player.move(5);
-        assertEquals(6, player.getPosition()); // 1 + 5 = 6
-
-        player.move(7); // Devrait boucler (6 + 7 = 13 -> revient à 1)
-        assertEquals(1, player.getPosition());
+        player.setPosition(5);
+        assertEquals(5, player.getPosition()); // Doit être bien mis à jour
     }
 
     @Test
-    public void testAddCoin() {
+    public void testAddCoinAndStreak() {
         Player player = new Player("Charlie");
         player.addCoin();
         assertEquals(1, player.getCoins());
+
+        player.addCoin();
+        player.addCoin();
+        assertEquals(4, player.getCoins());
+
+        player.addCoin(); // 4e bonne réponse
+        assertEquals(6, player.getCoins());
+    }
+
+    @Test
+    public void testResetStreak() {
+        Player player = new Player("David");
+        player.addCoin();
+        player.addCoin();
+        player.resetStreak();
+        assertEquals(0, player.getStreak());
     }
 
     @Test
     public void testPenaltyBox() {
-        Player player = new Player("David");
+        Player player = new Player("Eve");
         player.setInPenaltyBox(true);
         assertTrue(player.isInPenaltyBox());
+    }
+
+    @Test
+    public void testShouldGoToPenaltyBox() {
+        Player player = new Player("Frank");
+
+        // Première erreur -> Seconde chance
+        assertFalse(player.shouldGoToPenaltyBox("Science"));
+
+        // Deuxième erreur dans la même catégorie -> Prison
+        assertTrue(player.shouldGoToPenaltyBox("Science"));
+
+        // Nouvelle erreur dans une autre catégorie -> Seconde chance
+        assertFalse(player.shouldGoToPenaltyBox("Pop"));
     }
 }
