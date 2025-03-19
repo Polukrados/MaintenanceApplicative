@@ -8,7 +8,7 @@ class TitreTest {
     @Test
     void testTitreValide() {
         Titre titre = new Titre("Réunion importante");
-        assertEquals("Réunion importante", titre.getValeur());
+        assertEquals("Réunion importante", titre.valeur());
     }
 
     @Test
