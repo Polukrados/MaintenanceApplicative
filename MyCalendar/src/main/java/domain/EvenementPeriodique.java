@@ -1,5 +1,7 @@
 package domain;
 
+import java.time.LocalDate;
+
 public class EvenementPeriodique extends Event {
     private final int frequenceJours;
 
@@ -20,5 +22,17 @@ public class EvenementPeriodique extends Event {
     public boolean chevauche(Event autre) {
         return !(this.getFinDateTime().isBefore(autre.getDebutDateTime()) ||
                 this.getDebutDateTime().isAfter(autre.getFinDateTime()));
+    }
+
+    @Override
+    public boolean estDansPeriode(DateEvenement debut, DateEvenement fin) {
+        LocalDate occurrence = date.getValeur();
+        while (!occurrence.isAfter(fin.getValeur())) {
+            if (!occurrence.isBefore(debut.getValeur())) {
+                return true;
+            }
+            occurrence = occurrence.plusDays(frequenceJours);
+        }
+        return false;
     }
 }

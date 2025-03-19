@@ -32,6 +32,8 @@ public abstract class Event {
 
     public abstract boolean chevauche(Event autre);
 
+    public abstract boolean estDansPeriode(DateEvenement debut, DateEvenement fin);
+
     public EventId getId() {
         return id;
     }

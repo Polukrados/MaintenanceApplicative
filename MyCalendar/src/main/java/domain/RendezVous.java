@@ -15,4 +15,9 @@ public class RendezVous extends Event {
         return !(this.getFinDateTime().isBefore(autre.getDebutDateTime()) ||
                 this.getDebutDateTime().isAfter(autre.getFinDateTime()));
     }
+
+    @Override
+    public boolean estDansPeriode(DateEvenement debut, DateEvenement fin) {
+        return !date.getValeur().isBefore(debut.getValeur()) && !date.getValeur().isAfter(fin.getValeur());
+    }
 }

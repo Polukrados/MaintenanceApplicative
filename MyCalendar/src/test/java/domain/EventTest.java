@@ -109,4 +109,36 @@ class EventTest {
         EvenementPeriodique event = new EvenementPeriodique(id, titre, date, heure, duree, 7);
         assertEquals("Événement périodique : Séance de sport tous les 7 jours à partir du 2025-04-25", event.getDescription());
     }
+
+    @Test
+    void testEvenementDansPeriode() {
+        EventId id = new EventId(UUID.randomUUID());
+        Titre titre = new Titre("Déjeuner d'affaire");
+        DateEvenement date = new DateEvenement(LocalDate.of(2025, 4, 10));
+        HeureDebut heure = new HeureDebut(LocalTime.of(12, 0));
+        DureeEvenement duree = new DureeEvenement(90);
+
+        RendezVous rdv = new RendezVous(id, titre, date, heure, duree);
+
+        DateEvenement debutPeriode = new DateEvenement(LocalDate.of(2025, 4, 1));
+        DateEvenement finPeriode = new DateEvenement(LocalDate.of(2025, 4, 15));
+
+        assertTrue(rdv.estDansPeriode(debutPeriode, finPeriode));
+    }
+
+    @Test
+    void testEvenementHorsPeriode() {
+        EventId id = new EventId(UUID.randomUUID());
+        Titre titre = new Titre("Voyage d'affaires");
+        DateEvenement date = new DateEvenement(LocalDate.of(2025, 5, 10));
+        HeureDebut heure = new HeureDebut(LocalTime.of(9, 0));
+        DureeEvenement duree = new DureeEvenement(120);
+
+        RendezVous rdv = new RendezVous(id, titre, date, heure, duree);
+
+        DateEvenement debutPeriode = new DateEvenement(LocalDate.of(2025, 4, 1));
+        DateEvenement finPeriode = new DateEvenement(LocalDate.of(2025, 4, 30));
+
+        assertFalse(rdv.estDansPeriode(debutPeriode, finPeriode));
+    }
 }
