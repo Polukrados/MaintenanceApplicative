@@ -10,9 +10,18 @@ import java.util.UUID;
 
 public class Main {
     public static void main(String[] args) {
+
         CalendarManager calendar = new CalendarManager();
         Scanner scanner = new Scanner(System.in);
+        UserManager userManager = new UserManager();
+                String utilisateur = demanderConnexion(scanner,userManager);
+        if (utilisateur == null) {
+            System.out.println("Fermeture de l'application.");
+            return;
+        }
+
         boolean continuer = true;
+
 
         while (continuer) {
             System.out.println("\n=== Menu Gestionnaire d'Événements ===");
@@ -50,6 +59,55 @@ public class Main {
             }
         }
     }
+
+    private static String demanderConnexion(Scanner scanner, UserManager userManager) {
+        while (true) {
+            System.out.println("\n=== Connexion ===");
+            System.out.println("1 - Se connecter");
+            System.out.println("2 - Créer un compte");
+            System.out.println("3 - Quitter");
+            System.out.print("Votre choix : ");
+
+            String choix = scanner.nextLine();
+
+            switch (choix) {
+                case "1":
+                    System.out.print("Nom d'utilisateur : ");
+                    String username = scanner.nextLine();
+                    System.out.print("Mot de passe : ");
+                    String password = scanner.nextLine();
+
+                    if (userManager.verifierConnexion(username, password)) {
+                        System.out.println("✅ Connexion réussie !");
+                        return username;
+                    } else {
+                        System.out.println("❌ Identifiants incorrects !");
+                    }
+                    break;
+
+                case "2":
+                    System.out.print("Nom d'utilisateur : ");
+                    String newUsername = scanner.nextLine();
+                    System.out.print("Mot de passe : ");
+                    String newPassword = scanner.nextLine();
+
+                    if (userManager.inscrireUtilisateur(newUsername, newPassword)) {
+                        System.out.println("✅ Compte créé avec succès !");
+                        return newUsername;
+                    } else {
+                        System.out.println("❌ Nom d'utilisateur déjà pris !");
+                    }
+                    break;
+
+                case "3":
+                    return null; // Quitter l'application
+
+                default:
+                    System.out.println("Choix invalide, veuillez réessayer.");
+            }
+        }
+    }
+
 
     private static void afficherEvenements(CalendarManager calendar) {
         List<Event> evenements = calendar.getEvenements();
