@@ -31,4 +31,24 @@ public abstract class Event {
     }
 
     public abstract boolean chevauche(Event autre);
+
+    public EventId getId() {
+        return id;
+    }
+
+    public Titre getTitre() {
+        return titre;
+    }
+
+    public DateEvenement getDate() {
+        return date;
+    }
+
+    public HeureDebut getHeure() {
+        return heure;
+    }
+
+    public DureeEvenement getDuree() {
+        return duree;
+    }
 }
