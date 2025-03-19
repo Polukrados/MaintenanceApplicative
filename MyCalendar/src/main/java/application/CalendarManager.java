@@ -10,21 +10,20 @@ public class CalendarManager {
     private final List<Event> evenements;
 
     public CalendarManager() {
-        this.evenements = new ArrayList<>();
+        this.evenements = new ArrayList<>(JsonManager.chargerEvenements());
     }
 
     public void ajouterEvenement(Event event) {
-        if (event == null) {
-            throw new IllegalArgumentException("L'événement ne peut pas être null.");
-        }
         evenements.add(event);
+        JsonManager.sauvegarderEvenements(evenements);
     }
 
     public void supprimerEvenement(EventId id) {
         evenements.removeIf(event -> event.getId().equals(id));
+        JsonManager.sauvegarderEvenements(evenements);
     }
 
     public List<Event> getEvenements() {
-        return new ArrayList<>(evenements); // Retourne une copie pour préserver l'encapsulation.
+        return new ArrayList<>(evenements);
     }
 }
