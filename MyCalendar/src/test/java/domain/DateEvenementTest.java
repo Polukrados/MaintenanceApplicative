@@ -11,7 +11,7 @@ class DateEvenementTest {
     void testDateValide() {
         LocalDate date = LocalDate.of(2025, 3, 20);
         DateEvenement dateEvenement = new DateEvenement(date);
-        assertEquals(date, dateEvenement.getValeur());
+        assertEquals(date, dateEvenement.valeur());
     }
 
     @Test

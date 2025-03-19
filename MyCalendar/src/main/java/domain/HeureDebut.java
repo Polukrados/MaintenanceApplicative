@@ -1,12 +1,12 @@
 package domain;
 
-import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Objects;
 
-public record DateEvenement(LocalDate valeur) {
-    public DateEvenement {
+public record HeureDebut(LocalTime valeur) {
+    public HeureDebut {
         if (valeur == null) {
-            throw new IllegalArgumentException("La date ne peut pas être null.");
+            throw new IllegalArgumentException("L'heure de début ne peut pas être null.");
         }
     }
 
@@ -14,7 +14,7 @@ public record DateEvenement(LocalDate valeur) {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DateEvenement that = (DateEvenement) o;
+        HeureDebut that = (HeureDebut) o;
         return Objects.equals(valeur, that.valeur);
     }
 
