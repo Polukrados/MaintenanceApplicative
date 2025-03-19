@@ -19,4 +19,8 @@ public record DureeEvenement(int valeur) {
     public String toString() {
         return valeur + " minutes";
     }
+
+    public long getValeur() {
+        return valeur;
+    }
 }

@@ -17,4 +17,10 @@ public class Reunion extends Event {
     public String getDescription() {
         return "Réunion : " + titre + " le " + date + " à " + heure + " pendant " + duree + " au " + lieu + " avec " + participants;
     }
+
+    @Override
+    public boolean chevauche(Event autre) {
+        return !(this.getFinDateTime().isBefore(autre.getDebutDateTime()) ||
+                this.getDebutDateTime().isAfter(autre.getFinDateTime()));
+    }
 }

@@ -9,4 +9,10 @@ public class RendezVous extends Event {
     public String getDescription() {
         return "Rendez-vous : " + titre + " le " + date + " à " + heure + " pendant " + duree;
     }
+
+    @Override
+    public boolean chevauche(Event autre) {
+        return !(this.getFinDateTime().isBefore(autre.getDebutDateTime()) ||
+                this.getDebutDateTime().isAfter(autre.getFinDateTime()));
+    }
 }

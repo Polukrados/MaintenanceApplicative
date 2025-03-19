@@ -22,4 +22,8 @@ public record HeureDebut(LocalTime valeur) {
     public String toString() {
         return valeur.toString();
     }
+
+    public LocalTime getValeur() {
+        return valeur;
+    }
 }

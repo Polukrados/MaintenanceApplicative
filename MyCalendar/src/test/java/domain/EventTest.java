@@ -37,4 +37,38 @@ class EventTest {
                     .newInstance(new EventId(UUID.randomUUID()), new Titre("Test"), new DateEvenement(LocalDate.now()), new HeureDebut(LocalTime.now()), new DureeEvenement(60));
         });
     }
+
+    @Test
+    void testConflitEntreRendezVous() {
+        EventId id1 = new EventId(UUID.randomUUID());
+        EventId id2 = new EventId(UUID.randomUUID());
+        Titre titre = new Titre("Rendez-vous important");
+        DateEvenement date = new DateEvenement(LocalDate.of(2025, 3, 25));
+        HeureDebut heure1 = new HeureDebut(LocalTime.of(10, 0));
+        HeureDebut heure2 = new HeureDebut(LocalTime.of(10, 30));
+        DureeEvenement duree = new DureeEvenement(60);
+
+        RendezVous rdv1 = new RendezVous(id1, titre, date, heure1, duree);
+        RendezVous rdv2 = new RendezVous(id2, titre, date, heure2, duree);
+
+        assertTrue(rdv1.chevauche(rdv2));
+        assertTrue(rdv2.chevauche(rdv1));
+    }
+
+    @Test
+    void testAucunConflit() {
+        EventId id1 = new EventId(UUID.randomUUID());
+        EventId id2 = new EventId(UUID.randomUUID());
+        Titre titre = new Titre("Rendez-vous matin");
+        DateEvenement date = new DateEvenement(LocalDate.of(2025, 3, 25));
+        HeureDebut heure1 = new HeureDebut(LocalTime.of(8, 0));
+        HeureDebut heure2 = new HeureDebut(LocalTime.of(10, 0));
+        DureeEvenement duree = new DureeEvenement(60);
+
+        RendezVous rdv1 = new RendezVous(id1, titre, date, heure1, duree);
+        RendezVous rdv2 = new RendezVous(id2, titre, date, heure2, duree);
+
+        assertFalse(rdv1.chevauche(rdv2));
+        assertFalse(rdv2.chevauche(rdv1));
+    }
 }

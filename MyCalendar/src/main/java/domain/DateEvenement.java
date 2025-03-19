@@ -22,4 +22,8 @@ public record DateEvenement(LocalDate valeur) {
     public String toString() {
         return valeur.toString();
     }
+
+    public LocalDate getValeur() {
+        return valeur;
+    }
 }

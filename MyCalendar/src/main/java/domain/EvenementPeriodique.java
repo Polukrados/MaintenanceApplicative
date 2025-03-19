@@ -15,4 +15,10 @@ public class EvenementPeriodique extends Event {
     public String getDescription() {
         return "Événement périodique : " + titre + " tous les " + frequenceJours + " jours à partir du " + date;
     }
+
+    @Override
+    public boolean chevauche(Event autre) {
+        return !(this.getFinDateTime().isBefore(autre.getDebutDateTime()) ||
+                this.getDebutDateTime().isAfter(autre.getFinDateTime()));
+    }
 }
