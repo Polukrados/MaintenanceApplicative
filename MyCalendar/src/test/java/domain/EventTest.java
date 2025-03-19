@@ -71,4 +71,42 @@ class EventTest {
         assertFalse(rdv1.chevauche(rdv2));
         assertFalse(rdv2.chevauche(rdv1));
     }
+
+    @Test
+    void testDescriptionRendezVous() {
+        EventId id = new EventId(UUID.randomUUID());
+        Titre titre = new Titre("Consultation médicale");
+        DateEvenement date = new DateEvenement(LocalDate.of(2025, 4, 15));
+        HeureDebut heure = new HeureDebut(LocalTime.of(14, 0));
+        DureeEvenement duree = new DureeEvenement(30);
+
+        RendezVous rdv = new RendezVous(id, titre, date, heure, duree);
+        assertEquals("Rendez-vous : Consultation médicale le 2025-04-15 à 14:00 pendant 30 minutes", rdv.getDescription());
+    }
+
+    @Test
+    void testDescriptionReunion() {
+        EventId id = new EventId(UUID.randomUUID());
+        Titre titre = new Titre("Réunion d'équipe");
+        DateEvenement date = new DateEvenement(LocalDate.of(2025, 4, 20));
+        HeureDebut heure = new HeureDebut(LocalTime.of(10, 0));
+        DureeEvenement duree = new DureeEvenement(90);
+        Lieu lieu = new Lieu("Salle 101");
+        Participants participants = new Participants(List.of("Alice", "Bob"));
+
+        Reunion reunion = new Reunion(id, titre, date, heure, duree, lieu, participants);
+        assertEquals("Réunion : Réunion d'équipe le 2025-04-20 à 10:00 pendant 90 minutes au Salle 101 avec Alice, Bob", reunion.getDescription());
+    }
+
+    @Test
+    void testDescriptionEvenementPeriodique() {
+        EventId id = new EventId(UUID.randomUUID());
+        Titre titre = new Titre("Séance de sport");
+        DateEvenement date = new DateEvenement(LocalDate.of(2025, 4, 25));
+        HeureDebut heure = new HeureDebut(LocalTime.of(18, 0));
+        DureeEvenement duree = new DureeEvenement(60);
+
+        EvenementPeriodique event = new EvenementPeriodique(id, titre, date, heure, duree, 7);
+        assertEquals("Événement périodique : Séance de sport tous les 7 jours à partir du 2025-04-25", event.getDescription());
+    }
 }
